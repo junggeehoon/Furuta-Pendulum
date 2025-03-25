@@ -19,9 +19,6 @@ What seemed like a straightforward task turned out to be far more challenging th
 
 The goal of this project is to build my own Furuta pendulum model only using basic components and to understand the fundamental theories behind its operation.
 
-[Video of the pendulum controller implementation from Control System Design Lab.](Furuta%20Pendulum%201ad85b60c5ba803d8245d76d0159d2ae/IMG_4875.mov)
-
-Video of the pendulum controller implementation from Control System Design Lab.
 
 # Deriving Dynamics Model
 
@@ -29,15 +26,18 @@ This section presents the system dynamics of a pendulum using Lagrange’s metho
 
 Consider a rotational pendulum consisting of a rotating arm and a pendulum, as illustrated in Figure 1. The brushless motor (BLDC) is used to apply torque $\tau$ to arm and pendulum is free to rotate but not actuated. 
 
-![Figure 1. Schematic of the Furuta Pendulum system.](Furuta%20Pendulum%201ad85b60c5ba803d8245d76d0159d2ae/373b8be1-dd87-4a1c-aecf-741776162d71.png)
+![373b8be1-dd87-4a1c-aecf-741776162d71](https://github.com/user-attachments/assets/cdf15458-be37-4c4c-bf4b-72020ee9cb54)
+
 
 Figure 1. Schematic of the Furuta Pendulum system.
 
-![Figure 2. Side view defining parameters.](Furuta%20Pendulum%201ad85b60c5ba803d8245d76d0159d2ae/80eb68e7-3692-4634-a45e-2ed3875efcf0.png)
+![80eb68e7-3692-4634-a45e-2ed3875efcf0](https://github.com/user-attachments/assets/fe9c4a4f-e4ea-43d8-9efb-e716c79a2b88)
+
 
 Figure 2. Side view defining parameters.
 
-![Figure 3. Top view of the Arm and Pendulum](Furuta%20Pendulum%201ad85b60c5ba803d8245d76d0159d2ae/16a5a4c0-48b7-421a-93c6-b03f491bbfe6.png)
+![16a5a4c0-48b7-421a-93c6-b03f491bbfe6](https://github.com/user-attachments/assets/3f51ccf2-e893-40a0-a05c-4d009e87ecb4)
+
 
 Figure 3. Top view of the Arm and Pendulum
 
@@ -217,9 +217,6 @@ $$
 u = k(E - E_0)*\dot{\theta}*cos(\theta)
 $$
 
-[Pendulum swing up and balancing simulation using Simulink.](Furuta%20Pendulum%201ad85b60c5ba803d8245d76d0159d2ae/Untitled.mov)
-
-Pendulum swing up and balancing simulation using Simulink.
 
 # Manufacturing
 
