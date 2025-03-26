@@ -1,6 +1,7 @@
 # Furuta-Pendulum
 
 Period: November 20, 2024 → May 1, 2025
+
 Skills: 3D Printing, BLDC Motor, C/C++, CNC Machining, Embedded System, FOC Control, MATLAB, Oscilloscope, PID, State Space Control
 
 ![pendulum_MKS_ESP32_2025-Mar-05_07-02-20AM-000_CustomizedView50201434483.png](assets/pendulum_MKS_ESP32_2025-Mar-05_07-02-20AM-000_CustomizedView50201434483.png)
@@ -27,19 +28,13 @@ This section presents the system dynamics of a pendulum using Lagrange’s metho
 Consider a rotational pendulum consisting of a rotating arm and a pendulum, as illustrated in Figure 1. The brushless motor (BLDC) is used to apply torque $\tau$ to arm and pendulum is free to rotate but not actuated. 
 
 ![373b8be1-dd87-4a1c-aecf-741776162d71](https://github.com/user-attachments/assets/cdf15458-be37-4c4c-bf4b-72020ee9cb54)
-
-
-Figure 1. Schematic of the Furuta Pendulum system.
+*Figure 1. Schematic of the Furuta Pendulum system.*
 
 ![80eb68e7-3692-4634-a45e-2ed3875efcf0](https://github.com/user-attachments/assets/fe9c4a4f-e4ea-43d8-9efb-e716c79a2b88)
-
-
-Figure 2. Side view defining parameters.
+*Figure 2. Side view defining parameters.*
 
 ![16a5a4c0-48b7-421a-93c6-b03f491bbfe6](https://github.com/user-attachments/assets/3f51ccf2-e893-40a0-a05c-4d009e87ecb4)
-
-
-Figure 3. Top view of the Arm and Pendulum
+*Figure 3. Top view of the Arm and Pendulum*
 
 The center of mass of the pendulum can be expressed in the Cartesian coordinate system as follows:
 
@@ -62,13 +57,9 @@ v=\begin{pmatrix}
 \dot{y_p}\\
 \dot{z_p}
 \end{pmatrix} = \begin{pmatrix}
-
 -\dot{\theta}_1 \left( L_1 \sin(\theta_1) + l_2 \cos(\theta_1) \sin(\theta_2) \right) - l_2 \dot{\theta}_2 \cos(\theta_2) \sin(\theta_1) \\
-
 \dot{\theta}_1 \left( L_1 \cos(\theta_1) - l_2 \sin(\theta_1) \sin(\theta_2) \right) + l_2 \dot{\theta}_2 \cos(\theta_1) \cos(\theta_2)\\
-
 l_2 \dot{\theta}_2 \sin(\theta_2)
-
 \end{pmatrix}
 $$
 
@@ -111,13 +102,10 @@ $$
 The equations of motion are determined from Lagrangian by evaluating Euler-Lagrange equation:
 
 $$
-\frac{d}{dt}\!\biggl(\frac{\partial \mathcal{L}}{\partial \dot{\theta}_i}\biggr)
- \;-\;
-\frac{\partial \mathcal{L}}{\partial \theta_i}
- \;=\;
-\mu_i,
+\frac{d}{dt}\\biggl(\frac{\partial \mathcal{L}}{\partial \dot{\theta}_i}\biggr)
+ -\frac{\partial \mathcal{L}}{\partial \theta_i}=\mu_i,
 \quad
-i \in \{1,2\}.
+i \in \\{1, 2\\}
 $$
 
 # State Space Control
@@ -150,8 +138,10 @@ Since we don’t have precise measruements for mass and dimensions, we will assu
 We have following state space system:
 
 $$
-\dot{x} = Ax+Bu\\
-y = Cx + D
+\begin{matrix}
+    \dot{x} = Ax+Bu \\ 
+    y = Cx + D
+\end{matrix}
 $$
 
 If we choose our input $u = -kx$, the system can be represented as:
