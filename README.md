@@ -26,6 +26,9 @@
         - [Torque Constant (Line-to-Line Back-EMF)](#emf)
         - [Rotor Inertia](#rotorInertia)
         - [Rotor Friction Coefficient](#motorFriction)
+- [Resources](#resources)
+- [Appendix A: MATLAB Code for Deriving System Dynamics](#appendixA)
+- [Appendix B: MATLAB Code for Approximating Parameters](#appendixB)
 
 # Background <a name="background"></a>
 
@@ -359,7 +362,7 @@ Field Oriented Control (FOC) is suitable since it enables precise control of tor
 
 BLDC motor test with closed loop angle control.
 
-## Characterizing BLDC motor <a name="motor"></a>
+## Characterizing BLDC motor <a name="characterizing"></a>
 
 ### Torque Constant (Line-to-Line Back-EMF) <a name="emf"></a>
 
@@ -479,7 +482,7 @@ $$
 
 which yields to $b = 4.554 \times 10^{-4}$
 
-# Citations & Resources
+# Citations & Resources <a name="resources"></a>
 
 [On the Dynamics of the Furuta Pendulum.pdf](Furuta%20Pendulum%201ad85b60c5ba803d8245d76d0159d2ae/On_the_Dynamics_of_the_Furuta_Pendulum.pdf)
 
@@ -497,7 +500,7 @@ which yields to $b = 4.554 \times 10^{-4}$
 
 [Parts list](Furuta%20Pendulum%201ad85b60c5ba803d8245d76d0159d2ae/Parts%20list%201af85b60c5ba803eadaaeeb3bed66c37.csv)
 
-# Appendix A: MATLAB Code for Deriving System Dynamics
+# Appendix A: MATLAB Code for Deriving System Dynamics <a name="appendixA"></a>
 
 ```matlab
 close, clear, clc
@@ -595,7 +598,7 @@ disp('Linearized B matrix:');
 disp(B_lin);
 ```
 
-# Appendix B: MATLAB Code for Approximating Parameters
+# Appendix B: MATLAB Code for Approximating Parameters <a name="appendixB"></a>
 
 ```matlab
 close, clear, clc
