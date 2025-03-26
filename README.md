@@ -1,12 +1,33 @@
 # Furuta-Pendulum
 
-Period: November 20, 2024 → May 1, 2025
-
-Skills: 3D Printing, BLDC Motor, C/C++, CNC Machining, Embedded System, FOC Control, MATLAB, Oscilloscope, PID, State Space Control
 
 ![pendulum_MKS_ESP32_2025-Mar-05_07-02-20AM-000_CustomizedView50201434483.png](assets/pendulum_MKS_ESP32_2025-Mar-05_07-02-20AM-000_CustomizedView50201434483.png)
 
-# Background
+
+# Table of Contents
+- [Background](#background)
+- [Deriving Dynamics Model](#dynamics)
+- [State Space Control](#stateSpaceControl)
+    - [Linearization of a Nonlinear System](#linearization)
+    - [Controllability and Observability of the System](#controllability)
+    - [Regulator Design](#regulator)
+    - [State Estimation and Observer Design](#estimator)
+- [Manufacturing](#manufacturing)
+    - [3D modeling](#modeling)
+    - [3D printing & Painting](#printing)
+    - [CNC machining](#cnc)
+    - [Schematic Design](#schematic)
+- [Determining Parameter Values](#parameters)
+    - [Numerical approximation](#approximation)
+    - [Approximating moment of inertia](#inertia)
+- [Motor Controller Design](#motor)
+    - [FOC Control](#foc)
+    - [Characterizing BLDC motor](#characterizing)
+        - [Torque Constant (Line-to-Line Back-EMF)](#emf)
+        - [Rotor Inertia](#rotorInertia)
+        - [Rotor Friction Coefficient](#motorFriction)
+
+# Background <a name="background"></a>
 
 This documentation is written to provide guidelines who’re trying to create their own pendulum model and also serve as my personal notes to organize theories I learned. 
 
@@ -21,7 +42,7 @@ What seemed like a straightforward task turned out to be far more challenging th
 The goal of this project is to build my own Furuta pendulum model only using basic components and to understand the fundamental theories behind its operation.
 
 
-# Deriving Dynamics Model
+# Deriving Dynamics Model <a name="dynamics"></a>
 
 This section presents the system dynamics of a pendulum using Lagrange’s method. The equations were derived using MATLAB’s Symbolic Toolbox, and the corresponding MATLAB code is provided in Appendix A.
 
@@ -108,9 +129,9 @@ $$
 i \in \\{1, 2\\}
 $$
 
-# State Space Control
+# State Space Control <a name="stateSpaceControl"></a>
 
-## Linearization of a Nonlinear System
+## Linearization of a Nonlinear System <a name="linearization"></a>
 
 In this section, we will transform the nonlinear model into a linear state-space representation and analyze its controllability and observability. Subsequently, we will implement an LQR controller to stabilize the pendulum in the inverted position and simulate the system using MATLAB.
 
@@ -131,7 +152,7 @@ x = \begin{bmatrix}
 \end{bmatrix}
 $$
 
-## **Controllability and Observability of the System**
+## Controllability and Observability of the System <a name="controllability"></a>
 
 Since we don’t have precise measruements for mass and dimensions, we will assume certain parameters based on the 3D design. Evaluating the system’s controllability and observability before manufacturing will help in determining the appropriate model size and motor specifications later.
 
@@ -162,9 +183,9 @@ In MATLAB, the controllability can be determined using the commands `rank(ctrb(A
 
 if the output matches with the number of state variables, in this case n = 4, the system is controllable. 
 
-## Regulator Design
+## Regulator Design <a name="regulator"></a>
 
-## **State Estimation and Observer Design**
+## State Estimation and Observer Design <a name="estimator"></a>
 
 To control the system with the input  $u = -kx$ , we need to know the full state of our system. In our pendulum model, two encoders directly measure the arm angle and the pendulum angles,  $\theta_1$  and  $\theta_2$. However, the angular velocities  $\dot{\theta_1}, \dot{\theta_2}$ need to be estimated.
 
@@ -187,8 +208,10 @@ This transfer function would behave as a normal differentiator for low frequenci
 The state-space representation of the estimator is:
 
 $$
+\begin{matrix}
 \dot{x} = ax(t)+by(t) \\
 \hat{y} = cx(t) + dy(t)
+\end{matrix}
 $$
 
 where the state-space coefficients are:
@@ -208,9 +231,9 @@ u = k(E - E_0)*\dot{\theta}*cos(\theta)
 $$
 
 
-# Manufacturing
+# Manufacturing <a name="manufacturing"></a>
 
-## 3D modeling
+## 3D modeling <a name="modeling"></a>
 
 ![Figure 1. Furuta Pendulum Model with inverted position.](Furuta%20Pendulum%201ad85b60c5ba803d8245d76d0159d2ae/image.png)
 
@@ -236,7 +259,7 @@ Figure 5. Bottom plate where usb-c break board and main controller are located.
 
 Figure 6. Rotary Pendulum with screws.
 
-## 3D printing & Painting
+## 3D printing & Painting <a name="printing"></a>
 
 The final model will have only three 3D-printed parts: the encoder housing, top cover, and bottom cover, while all other parts will be CNC machined. To ensure proper functionality and design validation before machining, it would be advantageous to 3D print all components prior to CNC processing and it turned out the design had design flaws that required mulitple modifications.
 
@@ -258,7 +281,7 @@ Figure 8. Painting booth in ECE maker space.
 
 Figure 9. Painting 3d printed top cover using spray paint.
 
-## CNC machining
+## CNC machining <a name="cnc"></a>
 
 ![Figure 10. Lathe training & Testing](Furuta%20Pendulum%201ad85b60c5ba803d8245d76d0159d2ae/IMG_5542.jpg)
 
@@ -268,15 +291,15 @@ Figure 10. Lathe training & Testing
 
 Figure 11. CNC machined parts.
 
-## Schematic Design
+## Schematic Design <a name="schematic"></a>
 
 ![Figure 12. Schematic Design of MKS ESP32 FOC Driver Board.](Furuta%20Pendulum%201ad85b60c5ba803d8245d76d0159d2ae/Screenshot_2025-03-13_at_4.44.58_PM.png)
 
 Figure 12. Schematic Design of MKS ESP32 FOC Driver Board.
 
-# Determining Parameter Values
+# Determining Parameter Values <a name="parameters"></a>
 
-## Numerical approximation
+## Numerical approximation <a name="approximation"></a>
 
 [https://en.wikipedia.org/wiki/List_of_moments_of_inertia](https://en.wikipedia.org/wiki/List_of_moments_of_inertia)
 
@@ -287,7 +310,7 @@ Figure 12. Schematic Design of MKS ESP32 FOC Driver Board.
 | Arm Mount | Aluminum 6061 |  |  |
 | Ball bearing | Steel |  |  |
 
-## Approximating moment of inertia
+## Approximating moment of inertia <a name="inertia"></a>
 
 ![Figure 13. Simulated inertia and mass of the top cover in Fusion 360.](Furuta%20Pendulum%201ad85b60c5ba803d8245d76d0159d2ae/Top_cover_inertia.png)
 
@@ -320,9 +343,9 @@ Table II. Mass measurements of components.
 
 The inertia of fasteners, ball bearing and magnets is neglected. Despite multiple inquiries to the motor manufacturer, they were unable to provide the rotor’s inertia or mass. The measurement of the rotor’s inertia will be covered in the motor characterization section.
 
-# Motor Controller Design
+# Motor Controller Design <a name="motor"></a>
 
-## FOC Control
+## FOC Control <a name="foc"></a>
 
 Previously, we successfully derived the state-space model of the system with torque as the input.
 
@@ -336,9 +359,9 @@ Field Oriented Control (FOC) is suitable since it enables precise control of tor
 
 BLDC motor test with closed loop angle control.
 
-## Characterizing BLDC motor
+## Characterizing BLDC motor <a name="motor"></a>
 
-### Torque Constant (Line-to-Line Back-EMF)
+### Torque Constant (Line-to-Line Back-EMF) <a name="emf"></a>
 
 To control motor torque via current, the torque constant was required. I used a GM5208-12 motor, but surprisingly, the manufacturer did not include this information in the datasheet. After reaching out to inquire about it and receiving no response, I measured the torque constant myself.
 
@@ -372,7 +395,7 @@ Table III. Torque constant with different RPM.
 
 Torque Constant: 0.277 $N\cdot m/A$
 
-### Rotor Inertia
+### Rotor Inertia <a name="rotorInertia"></a>
 
 ![Figure 14. Step current input of 0.2A.](Furuta%20Pendulum%201ad85b60c5ba803d8245d76d0159d2ae/plot.png)
 
@@ -404,7 +427,7 @@ Table IV. Moment of Inertia of the Rotor at Various Current Levels.
 
 I’ve conducted multiple tests with varying current inputs and selected the inertia value of `0.00179584 $kg \cdot m^2$,` which provided the best fit with an  $R^2$  value of 0.9987.
 
-### Rotor Friction Coefficient
+### Rotor Friction Coefficient <a name="motorFriction"></a>
 
 In a BLDC motor, the rotor is supported by ball bearings to maintain its central position, which introduces friction. Additionally, a slip ring is used to enable 360-degree rotation while transmitting encoder signals, which also introduces additional friction.
 
